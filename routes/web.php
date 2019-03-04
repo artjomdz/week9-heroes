@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', "PageController@index");
+Route::get('/hero/{id}', "HeroController@show");
+Route::get('/hero', "HeroController@index");
+Route::post('/hero/{id}', 'HeroController@store');
+
+
 
 Auth::routes();

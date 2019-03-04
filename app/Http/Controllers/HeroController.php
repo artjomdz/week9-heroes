@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Emergencie;
+
 
 class HeroController extends Controller
 {
@@ -18,5 +20,21 @@ class HeroController extends Controller
         $view = view('hero/show');
         $view->hero = $hero;
         return $view;
+    }
+
+    public function index() {
+        $heroes = \App\Hero::orderBy('name')->get();
+        
+
+        return view('hero.index')->withHeroes($heroes);
+    }
+
+
+    public function store(Request $request) {
+        $emergency = new Emergencie;
+        $emergency->subject = $request->input('subject');
+        $emergency->description = $request->input('description');
+        $emergency->save();
+        return back();
     }
 }
